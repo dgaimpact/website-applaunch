@@ -1,0 +1,1193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AppLaunch™ — AI-Powered Custom App Development</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0A1628;
+    --navy-light: #0f2240;
+    --navy-mid: #162a4a;
+    --blue: #4A9FD8;
+    --blue-dark: #2E5A7D;
+    --blue-glow: rgba(74, 159, 216, 0.15);
+    --green: #A4D65E;
+    --green-dark: #7FB842;
+    --white: #FFFFFF;
+    --gray-50: #F8FAFC;
+    --gray-100: #F1F5F9;
+    --gray-200: #E2E8F0;
+    --gray-300: #CBD5E1;
+    --gray-400: #94A3B8;
+    --gray-500: #64748B;
+    --gray-600: #475569;
+    --gray-700: #334155;
+    --gray-800: #1E293B;
+    --amber: #F59E0B;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    color: var(--white);
+    background: var(--navy);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(10, 22, 40, 0.95);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(74, 159, 216, 0.12);
+    padding: 0 2rem;
+    height: 68px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+  }
+
+  .nav-logo {
+    width: 36px; height: 36px;
+    border-radius: 8px;
+    background: white;
+    padding: 2px;
+  }
+
+  .nav-name {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: -0.02em;
+  }
+
+  .nav-back {
+    color: var(--gray-400);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: color 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .nav-back:hover { color: var(--white); }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 1.8rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--gray-400);
+    text-decoration: none;
+    font-size: 0.88rem;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--white); }
+
+  .nav-cta {
+    background: var(--green) !important;
+    color: var(--navy) !important;
+    padding: 9px 22px;
+    border-radius: 8px;
+    font-weight: 700 !important;
+    font-size: 0.85rem !important;
+    transition: all 0.2s;
+  }
+
+  .nav-cta:hover {
+    background: var(--green-dark) !important;
+    transform: translateY(-1px);
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    padding: 160px 2rem 100px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -200px; left: 50%;
+    transform: translateX(-50%);
+    width: 800px; height: 800px;
+    background: radial-gradient(circle, rgba(74, 159, 216, 0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .coming-soon-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(164, 214, 94, 0.1);
+    border: 1px solid rgba(164, 214, 94, 0.3);
+    color: var(--green);
+    padding: 8px 20px;
+    border-radius: 100px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 32px;
+    animation: pulse-badge 3s ease-in-out infinite;
+  }
+
+  @keyframes pulse-badge {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(164, 214, 94, 0.15); }
+    50% { box-shadow: 0 0 20px 4px rgba(164, 214, 94, 0.1); }
+  }
+
+  .coming-soon-badge .dot {
+    width: 8px; height: 8px;
+    background: var(--green);
+    border-radius: 50%;
+    animation: blink 2s ease-in-out infinite;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  .hero h1 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    margin-bottom: 24px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero h1 .accent {
+    background: linear-gradient(135deg, var(--blue), var(--green));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-sub {
+    font-size: 1.15rem;
+    color: var(--gray-400);
+    max-width: 620px;
+    margin: 0 auto 40px;
+    line-height: 1.7;
+  }
+
+  .hero-cta-group {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--green);
+    color: var(--navy);
+    padding: 14px 32px;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .btn-primary:hover {
+    background: var(--green-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(164, 214, 94, 0.2);
+  }
+
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    color: var(--gray-300);
+    padding: 14px 32px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: all 0.2s;
+    border: 1px solid rgba(255,255,255,0.12);
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--blue);
+    color: var(--white);
+  }
+
+  .hero-trust {
+    margin-top: 40px;
+    font-size: 0.82rem;
+    color: var(--gray-500);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .hero-trust span {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  /* ─── SECTION BASE ─── */
+  section {
+    padding: 100px 2rem;
+    position: relative;
+  }
+
+  .section-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 12px;
+  }
+
+  .section-title {
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+    line-height: 1.15;
+  }
+
+  .section-desc {
+    font-size: 1.05rem;
+    color: var(--gray-400);
+    max-width: 640px;
+    line-height: 1.7;
+    margin-bottom: 48px;
+  }
+
+  .section-desc.centered {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+
+  /* ─── PROBLEM SECTION ─── */
+  .problem {
+    background: var(--navy-light);
+    border-top: 1px solid rgba(74, 159, 216, 0.08);
+    border-bottom: 1px solid rgba(74, 159, 216, 0.08);
+  }
+
+  .problem-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: center;
+  }
+
+  .pain-points {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .pain-point {
+    background: rgba(239, 68, 68, 0.06);
+    border: 1px solid rgba(239, 68, 68, 0.12);
+    border-radius: 12px;
+    padding: 18px 20px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .pain-point .x-icon {
+    color: #EF4444;
+    font-weight: 800;
+    font-size: 1rem;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .pain-point p {
+    font-size: 0.9rem;
+    color: var(--gray-300);
+    line-height: 1.5;
+  }
+
+  /* ─── HOW IT WORKS ─── */
+  .how-it-works {
+    background: var(--navy);
+  }
+
+  .phases {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .phase {
+    background: var(--navy-light);
+    border: 1px solid rgba(74, 159, 216, 0.1);
+    border-radius: 14px;
+    padding: 28px 24px;
+    text-align: center;
+    position: relative;
+    transition: all 0.3s;
+  }
+
+  .phase:hover {
+    border-color: rgba(74, 159, 216, 0.25);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+  }
+
+  .phase-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    background: rgba(74, 159, 216, 0.1);
+    border: 1px solid rgba(74, 159, 216, 0.2);
+    color: var(--blue);
+    font-weight: 800;
+    font-size: 1rem;
+    margin-bottom: 16px;
+  }
+
+  .phase h3 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+
+  .phase p {
+    font-size: 0.85rem;
+    color: var(--gray-400);
+    line-height: 1.6;
+  }
+
+  .phase .free-badge {
+    display: inline-block;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: rgba(164, 214, 94, 0.12);
+    color: var(--green);
+    padding: 3px 10px;
+    border-radius: 100px;
+    margin-top: 12px;
+  }
+
+  /* ─── FEATURES ─── */
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .feature-card {
+    background: var(--navy-light);
+    border: 1px solid rgba(74, 159, 216, 0.1);
+    border-radius: 14px;
+    padding: 28px 24px;
+    transition: all 0.3s;
+  }
+
+  .feature-card:hover {
+    border-color: rgba(74, 159, 216, 0.25);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+  }
+
+  .feature-icon {
+    font-size: 1.6rem;
+    margin-bottom: 14px;
+  }
+
+  .feature-card h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+
+  .feature-card p {
+    font-size: 0.88rem;
+    color: var(--gray-400);
+    line-height: 1.6;
+  }
+
+  /* ─── PRICING ─── */
+  .pricing {
+    background: var(--navy-light);
+    border-top: 1px solid rgba(74, 159, 216, 0.08);
+    border-bottom: 1px solid rgba(74, 159, 216, 0.08);
+  }
+
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-bottom: 48px;
+  }
+
+  .price-card {
+    background: var(--navy);
+    border: 1px solid rgba(74, 159, 216, 0.12);
+    border-radius: 16px;
+    padding: 36px 28px;
+    position: relative;
+    transition: all 0.3s;
+  }
+
+  .price-card:hover {
+    border-color: rgba(74, 159, 216, 0.3);
+    transform: translateY(-4px);
+    box-shadow: 0 16px 48px rgba(0,0,0,0.3);
+  }
+
+  .price-card.featured {
+    border-color: rgba(164, 214, 94, 0.3);
+    box-shadow: 0 0 40px rgba(164, 214, 94, 0.06);
+  }
+
+  .price-card.featured::before {
+    content: 'Most Popular';
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--green);
+    color: var(--navy);
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 5px 16px;
+    border-radius: 100px;
+  }
+
+  .price-tier {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 8px;
+  }
+
+  .price-card h3 {
+    font-size: 1.3rem;
+    font-weight: 800;
+    margin-bottom: 8px;
+  }
+
+  .price-range {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--white);
+    margin-bottom: 4px;
+  }
+
+  .price-timeline {
+    font-size: 0.85rem;
+    color: var(--gray-500);
+    margin-bottom: 20px;
+  }
+
+  .price-desc {
+    font-size: 0.88rem;
+    color: var(--gray-400);
+    margin-bottom: 20px;
+    line-height: 1.5;
+  }
+
+  .price-features {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .price-features li {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 0.85rem;
+    color: var(--gray-300);
+  }
+
+  .price-features li .check {
+    color: var(--green);
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .price-example {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(74, 159, 216, 0.08);
+    font-size: 0.82rem;
+    color: var(--gray-500);
+    font-style: italic;
+  }
+
+  /* Managed Plan */
+  .managed-plan {
+    background: var(--navy);
+    border: 1px solid rgba(164, 214, 94, 0.15);
+    border-radius: 16px;
+    padding: 36px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 36px;
+    align-items: center;
+  }
+
+  .managed-plan h3 {
+    font-size: 1.3rem;
+    font-weight: 800;
+    margin-bottom: 8px;
+  }
+
+  .managed-price {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .managed-price .amount {
+    font-size: 2rem;
+    font-weight: 800;
+  }
+
+  .managed-price .period {
+    font-size: 0.95rem;
+    color: var(--gray-400);
+  }
+
+  .managed-plan p {
+    font-size: 0.9rem;
+    color: var(--gray-400);
+    line-height: 1.6;
+  }
+
+  .managed-features {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .managed-features li {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 0.88rem;
+    color: var(--gray-300);
+  }
+
+  .managed-features li .check {
+    color: var(--green);
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  /* ─── NICHE SECTION ─── */
+  .niche-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .niche-card {
+    background: var(--navy-light);
+    border: 1px solid rgba(74, 159, 216, 0.1);
+    border-radius: 14px;
+    padding: 24px;
+    transition: all 0.3s;
+  }
+
+  .niche-card:hover {
+    border-color: rgba(74, 159, 216, 0.25);
+    transform: translateY(-3px);
+  }
+
+  .niche-card .niche-icon {
+    font-size: 1.4rem;
+    margin-bottom: 12px;
+  }
+
+  .niche-card h3 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  .niche-card .pain {
+    font-size: 0.82rem;
+    color: var(--gray-500);
+    margin-bottom: 8px;
+  }
+
+  .niche-card .solution {
+    font-size: 0.82rem;
+    color: var(--green);
+    font-weight: 600;
+  }
+
+  /* ─── INCLUDED ─── */
+  .included-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .included-item {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 16px 20px;
+    background: var(--navy-light);
+    border: 1px solid rgba(74, 159, 216, 0.08);
+    border-radius: 12px;
+  }
+
+  .included-item .check {
+    color: var(--green);
+    font-weight: 700;
+    font-size: 1rem;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .included-item .item-name {
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--gray-200);
+  }
+
+  .included-item .item-desc {
+    font-size: 0.8rem;
+    color: var(--gray-500);
+    margin-top: 3px;
+  }
+
+  /* ─── CTA SECTION ─── */
+  .cta-section {
+    text-align: center;
+    padding: 120px 2rem;
+    position: relative;
+  }
+
+  .cta-section::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(164, 214, 94, 0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .cta-section h2 {
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+  }
+
+  .cta-section p {
+    font-size: 1.05rem;
+    color: var(--gray-400);
+    margin-bottom: 36px;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.7;
+  }
+
+  .cta-trust-bottom {
+    margin-top: 32px;
+    font-size: 0.82rem;
+    color: var(--gray-500);
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    border-top: 1px solid rgba(74, 159, 216, 0.08);
+    padding: 40px 2rem;
+    text-align: center;
+  }
+
+  .footer-brand {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--gray-300);
+    margin-bottom: 4px;
+  }
+
+  .footer-powered {
+    font-size: 0.82rem;
+    color: var(--gray-500);
+    margin-bottom: 8px;
+  }
+
+  .footer-address {
+    font-size: 0.78rem;
+    color: var(--gray-500);
+    margin-bottom: 12px;
+  }
+
+  .footer-copy {
+    font-size: 0.75rem;
+    color: var(--gray-600);
+  }
+
+  .footer-copy a {
+    color: var(--gray-500);
+    text-decoration: none;
+  }
+
+  .footer-copy a:hover { color: var(--blue); }
+
+  /* ─── ANIMATIONS ─── */
+  .animate-in {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .animate-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 900px) {
+    .problem-grid { grid-template-columns: 1fr; }
+    .pricing-grid { grid-template-columns: 1fr; }
+    .managed-plan { grid-template-columns: 1fr; }
+    .features-grid { grid-template-columns: repeat(2, 1fr); }
+    .phases { grid-template-columns: repeat(2, 1fr); }
+    .niche-grid { grid-template-columns: repeat(2, 1fr); }
+    .included-grid { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 600px) {
+    .features-grid { grid-template-columns: 1fr; }
+    .phases { grid-template-columns: 1fr; }
+    .niche-grid { grid-template-columns: 1fr; }
+    nav { padding: 0 1rem; }
+    .nav-links { gap: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">
+    <img src="AL - transparent background 200x200.svg" alt="AppLaunch™" class="nav-logo">
+    <span class="nav-name">AppLaunch™</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="dgaimpact.html" class="nav-back">← DGA Impact Inc.™</a></li>
+    <li><a href="#how-it-works">Process</a></li>
+    <li><a href="#features">Features</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#niche">Who It's For</a></li>
+    <li><a href="#cta" class="nav-cta">Book a Call →</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="coming-soon-badge animate-in">
+    <span class="dot"></span>
+    Coming Soon — 2026
+  </div>
+  <h1 class="animate-in">Custom Apps for Your Business.<br><span class="accent">Built with AI.</span></h1>
+  <p class="hero-sub animate-in">Stop wrestling with off-the-shelf software that doesn't fit how you work. AppLaunch™ builds custom applications around your business — powered by the proven AppBlueprint™ methodology, delivered at small business prices.</p>
+  <div class="hero-cta-group animate-in">
+    <a href="mailto:applaunch-info@dgaimpact.com?subject=AppLaunch%20Discovery%20Call" class="btn-primary">Book a Free Discovery Call →</a>
+    <a href="#pricing" class="btn-secondary">See Pricing</a>
+  </div>
+  <div class="hero-trust animate-in">
+    <span>✓ Fixed pricing — no hourly surprises</span>
+    <span>✓ You own the source code — full repo transfer on request</span>
+    <span>✓ 30-day post-launch support</span>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="problem">
+  <div class="section-inner">
+    <div class="problem-grid">
+      <div>
+        <p class="section-label animate-in">The Problem</p>
+        <h2 class="section-title animate-in">Off-the-Shelf Software<br>Doesn't Fit Your Business</h2>
+        <p class="section-desc animate-in">Small businesses are underserved — too small for agencies, too complex for no-code tools. You end up paying for features you don't need while missing the ones you do.</p>
+        <p class="section-desc animate-in" style="margin-bottom: 0">AppLaunch™ builds exactly what your business needs. <strong style="color: var(--white)">Nothing more. Nothing less. And you own everything.</strong></p>
+      </div>
+      <div class="pain-points animate-in">
+        <div class="pain-point">
+          <span class="x-icon">✕</span>
+          <p>Paying monthly for SaaS tools that do 10% of what you need and 90% you don't</p>
+        </div>
+        <div class="pain-point">
+          <span class="x-icon">✕</span>
+          <p>Spreadsheet workflows that break when a second person touches them</p>
+        </div>
+        <div class="pain-point">
+          <span class="x-icon">✕</span>
+          <p>Freelancers who disappear mid-project or bill 3x the original quote</p>
+        </div>
+        <div class="pain-point">
+          <span class="x-icon">✕</span>
+          <p>No-code tools that hit a wall the moment you need real functionality</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS — AppBlueprint™ -->
+<section id="how-it-works">
+  <div class="section-inner">
+    <p class="section-label animate-in" style="text-align: center">Powered by AppBlueprint™</p>
+    <h2 class="section-title animate-in" style="text-align: center">A Proven 6-Phase Process</h2>
+    <p class="section-desc centered animate-in">AppBlueprint™ prevents the #1 reason custom software fails: unclear requirements. You approve detailed specs before a single line of code is written.</p>
+
+    <div class="phases">
+      <div class="phase animate-in">
+        <div class="phase-num">01</div>
+        <h3>Voice Discovery</h3>
+        <p>Tell us about your business in your own words. Our Voice Discovery Agent captures how you actually work — not what a generic form thinks you need.</p>
+        <span class="free-badge">Free — No Commitment</span>
+      </div>
+      <div class="phase animate-in">
+        <div class="phase-num">02</div>
+        <h3>Architecture Mindmap</h3>
+        <p>We translate your discovery session into a visual app architecture. You see exactly what's being built before anything starts.</p>
+      </div>
+      <div class="phase animate-in">
+        <div class="phase-num">03</div>
+        <h3>Detailed PRD</h3>
+        <p>A complete product requirements document. Every feature, every screen, every interaction — documented and signed off by you.</p>
+      </div>
+      <div class="phase animate-in">
+        <div class="phase-num">04</div>
+        <h3>AI-Powered Build</h3>
+        <p>Production-grade development using Next.js, Supabase, and Vercel. AI accelerates the build — you get enterprise quality at small business speed.</p>
+      </div>
+      <div class="phase animate-in">
+        <div class="phase-num">05</div>
+        <h3>Launch & Deploy</h3>
+        <p>Your app goes live on a custom domain. We handle deployment, DNS, and initial configuration. You start using it immediately.</p>
+      </div>
+      <div class="phase animate-in">
+        <div class="phase-num">06</div>
+        <h3>Ongoing Support</h3>
+        <p>30 days of included bug fix support. Then optional managed plan for ongoing updates, hosting, and minor changes.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features" style="background: var(--navy-light); border-top: 1px solid rgba(74, 159, 216, 0.08); border-bottom: 1px solid rgba(74, 159, 216, 0.08);">
+  <div class="section-inner">
+    <p class="section-label animate-in">What You Get</p>
+    <h2 class="section-title animate-in">Every Project Includes</h2>
+    <p class="section-desc animate-in">No hidden costs. No surprise add-ons. Every AppLaunch™ project comes with the full package.</p>
+
+    <div class="included-grid">
+      <div class="included-item animate-in">
+        <span class="check">✓</span>
+        <div>
+          <div class="item-name">Full AppBlueprint™ Discovery</div>
+          <div class="item-desc">Voice-first requirement gathering — we understand your business before we touch code</div>
+        </div>
+      </div>
+      <div class="included-item animate-in">
+        <span class="check">✓</span>
+        <div>
+          <div class="item-name">Visual Architecture Mindmap</div>
+          <div class="item-desc">See your entire app mapped out before development starts</div>
+        </div>
+      </div>
+      <div class="included-item animate-in">
+        <span class="check">✓</span>
+        <div>
+          <div class="item-name">Detailed PRD Document</div>
+          <div class="item-desc">Client signs off on every feature before a single line of code is written</div>
+        </div>
+      </div>
+      <div class="included-item animate-in">
+        <span class="check">✓</span>
+        <div>
+          <div class="item-name">Production-Grade Application</div>
+          <div class="item-desc">Built with Next.js + Supabase + Vercel — real tech, not no-code band-aids</div>
+        </div>
+      </div>
+      <div class="included-item animate-in">
+        <span class="check">✓</span>
+        <div>
+          <div class="item-name">Custom Domain Deployment</div>
+          <div class="item-desc">Your app, your domain, your brand — deployed and configured</div>
+        </div>
+      </div>
+      <div class="included-item animate-in">
+        <span class="check">✓</span>
+        <div>
+          <div class="item-name">Source Code Ownership</div>
+          <div class="item-desc">You own everything we build. Full GitHub repo transfer on request. No lock-in.</div>
+        </div>
+      </div>
+      <div class="included-item animate-in">
+        <span class="check">✓</span>
+        <div>
+          <div class="item-name">30-Day Post-Launch Support</div>
+          <div class="item-desc">Bug fixes and stabilization included after go-live</div>
+        </div>
+      </div>
+      <div class="included-item animate-in">
+        <span class="check">✓</span>
+        <div>
+          <div class="item-name">Handoff Documentation</div>
+          <div class="item-desc">Complete technical docs so anyone can maintain your app</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="pricing">
+  <div class="section-inner">
+    <p class="section-label animate-in" style="text-align: center">Transparent Pricing</p>
+    <h2 class="section-title animate-in" style="text-align: center">Fixed Price. No Surprises.</h2>
+    <p class="section-desc centered animate-in">Every project is scoped and priced before development begins. 50% upfront, 50% on delivery. Discovery is always free.</p>
+
+    <div class="pricing-grid">
+      <!-- Starter -->
+      <div class="price-card animate-in">
+        <div class="price-tier">Starter</div>
+        <h3>Single-Purpose App</h3>
+        <div class="price-range">$2,500 – $4,000</div>
+        <div class="price-timeline">4–6 weeks delivery</div>
+        <p class="price-desc">A focused application with 1–2 core features. Perfect for replacing a manual process with something that just works.</p>
+        <ul class="price-features">
+          <li><span class="check">✓</span> 1–2 core features</li>
+          <li><span class="check">✓</span> Mobile responsive</li>
+          <li><span class="check">✓</span> User authentication</li>
+          <li><span class="check">✓</span> Full AppBlueprint™ process</li>
+          <li><span class="check">✓</span> Full repo transfer on request</li>
+        </ul>
+        <p class="price-example">Example: Booking form, intake system, simple dashboard</p>
+      </div>
+
+      <!-- Standard -->
+      <div class="price-card featured animate-in">
+        <div class="price-tier">Standard</div>
+        <h3>Multi-Feature App</h3>
+        <div class="price-range">$4,000 – $7,000</div>
+        <div class="price-timeline">7–10 weeks delivery</div>
+        <p class="price-desc">A complete application with multiple features, user roles, and a dashboard. The sweet spot for most small businesses.</p>
+        <ul class="price-features">
+          <li><span class="check">✓</span> 3–5 core features</li>
+          <li><span class="check">✓</span> Admin dashboard</li>
+          <li><span class="check">✓</span> User roles & permissions</li>
+          <li><span class="check">✓</span> Payment integration</li>
+          <li><span class="check">✓</span> Full AppBlueprint™ process</li>
+          <li><span class="check">✓</span> Full repo transfer on request</li>
+        </ul>
+        <p class="price-example">Example: Client portal, CRM lite, scheduling + payments</p>
+      </div>
+
+      <!-- Premium -->
+      <div class="price-card animate-in">
+        <div class="price-tier">Premium</div>
+        <h3>Full Business System</h3>
+        <div class="price-range">$7,000 – $10,000</div>
+        <div class="price-timeline">10–14 weeks delivery</div>
+        <p class="price-desc">Complex business logic, third-party integrations, and admin panels. For businesses ready to replace multiple tools with one.</p>
+        <ul class="price-features">
+          <li><span class="check">✓</span> Complex business logic</li>
+          <li><span class="check">✓</span> Third-party integrations</li>
+          <li><span class="check">✓</span> Multi-user platform</li>
+          <li><span class="check">✓</span> Automated workflows</li>
+          <li><span class="check">✓</span> Full AppBlueprint™ process</li>
+          <li><span class="check">✓</span> Full repo transfer on request</li>
+        </ul>
+        <p class="price-example">Example: Full CRM, multi-user platform, automated workflows</p>
+      </div>
+    </div>
+
+    <!-- Managed Plans -->
+    <div class="managed-plan animate-in">
+      <div>
+        <h3>Ongoing Hosting &amp; Maintenance</h3>
+        <p style="font-size: 0.95rem; color: var(--gray-300); margin-bottom: 16px;">After your app launches, we keep it running and evolving. Your managed plan tier matches your build complexity.</p>
+        <p style="font-size: 0.85rem; color: var(--gray-500); line-height: 1.6;">More complex builds = more infrastructure to manage = higher monthly tier. Each plan includes hosting, bug fixes, security updates, and priority support. Need more than your included hours? $75/hr for additional work.</p>
+      </div>
+      <div>
+        <div style="display: flex; flex-direction: column; gap: 16px;">
+          <div style="background: rgba(74, 159, 216, 0.05); border: 1px solid rgba(74, 159, 216, 0.1); border-radius: 12px; padding: 18px 20px;">
+            <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px;">
+              <span style="font-weight: 700; font-size: 0.9rem;">Essential Hosting</span>
+              <span style="font-weight: 800; font-size: 1.1rem;">$99<span style="font-size: 0.8rem; color: var(--gray-400); font-weight: 500;">/mo</span></span>
+            </div>
+            <div style="font-size: 0.82rem; color: var(--gray-400);">For Starter builds · Simple apps, low infrastructure · 1 hour/month updates</div>
+          </div>
+          <div style="background: rgba(74, 159, 216, 0.05); border: 1px solid rgba(74, 159, 216, 0.15); border-radius: 12px; padding: 18px 20px;">
+            <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px;">
+              <span style="font-weight: 700; font-size: 0.9rem;">Standard Hosting</span>
+              <span style="font-weight: 800; font-size: 1.1rem;">$149<span style="font-size: 0.8rem; color: var(--gray-400); font-weight: 500;">/mo</span></span>
+            </div>
+            <div style="font-size: 0.82rem; color: var(--gray-400);">For Standard builds · Payment processing, email automation · 2 hours/month updates</div>
+          </div>
+          <div style="background: rgba(164, 214, 94, 0.05); border: 1px solid rgba(164, 214, 94, 0.15); border-radius: 12px; padding: 18px 20px;">
+            <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px;">
+              <span style="font-weight: 700; font-size: 0.9rem;">Premium Hosting</span>
+              <span style="font-weight: 800; font-size: 1.1rem;">$229<span style="font-size: 0.8rem; color: var(--gray-400); font-weight: 500;">/mo</span></span>
+            </div>
+            <div style="font-size: 0.82rem; color: var(--gray-400);">For Premium builds · AI features, complex integrations · 3 hours/month updates</div>
+          </div>
+          <div style="font-size: 0.78rem; color: var(--gray-500); text-align: center; margin-top: 4px;">Additional work beyond included hours: $75/hr</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHO IT'S FOR -->
+<section id="niche">
+  <div class="section-inner">
+    <p class="section-label animate-in">Who It's For</p>
+    <h2 class="section-title animate-in">Built for Small Businesses<br>That Outgrew Their Tools</h2>
+    <p class="section-desc animate-in">We specialize in sports and fitness businesses — but build for any small business with operational pain points that off-the-shelf software can't solve.</p>
+
+    <div class="niche-grid">
+      <div class="niche-card animate-in">
+        <div class="niche-icon">🏋️</div>
+        <h3>Gyms & CrossFit Boxes</h3>
+        <div class="pain">Class scheduling chaos, member tracking in spreadsheets</div>
+        <div class="solution">→ Booking system, member portal, WOD tracker</div>
+      </div>
+      <div class="niche-card animate-in">
+        <div class="niche-icon">🏀</div>
+        <h3>Sports Coaching</h3>
+        <div class="pain">Session booking, progress tracking, parent communication</div>
+        <div class="solution">→ Scheduling app, athlete dashboard, payment portal</div>
+      </div>
+      <div class="niche-card animate-in">
+        <div class="niche-icon">🏒</div>
+        <h3>Rec Leagues & Beer Leagues</h3>
+        <div class="pain">Team registration, scheduling, standings, payments</div>
+        <div class="solution">→ League management app, team portals</div>
+      </div>
+      <div class="niche-card animate-in">
+        <div class="niche-icon">💪</div>
+        <h3>Personal Trainers</h3>
+        <div class="pain">Client intake, workout plans, progress photos, billing</div>
+        <div class="solution">→ Client portal, program builder</div>
+      </div>
+      <div class="niche-card animate-in">
+        <div class="niche-icon">⚽</div>
+        <h3>Sports Camps & Clinics</h3>
+        <div class="pain">Registration, waivers, communication, payment collection</div>
+        <div class="solution">→ Registration system, parent portal</div>
+      </div>
+      <div class="niche-card animate-in">
+        <div class="niche-icon">🔧</div>
+        <h3>Any Small Business</h3>
+        <div class="pain">Contractors, salons, restaurants, professional services</div>
+        <div class="solution">→ Custom apps built around how you actually work</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="cta">
+  <h2 class="animate-in">Tell Us Your Biggest Operational Headache</h2>
+  <p class="animate-in">Book a free discovery call. We'll walk through your workflow and show you exactly what AppLaunch™ can build for you. No obligation, no pressure.</p>
+  <div class="hero-cta-group animate-in">
+    <a href="mailto:applaunch-info@dgaimpact.com?subject=AppLaunch%20Discovery%20Call" class="btn-primary">Book a Free Discovery Call →</a>
+    <a href="mailto:applaunch-info@dgaimpact.com?subject=AppLaunch%20Question" class="btn-secondary">Email Us</a>
+  </div>
+  <p class="cta-trust-bottom animate-in">Free discovery call · No obligation · Fixed pricing guaranteed · You own everything we build</p>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">AppLaunch™ — AI-Powered Custom App Development</div>
+  <div class="footer-powered">Powered by AppBlueprint™ · A service of DGA Impact Inc.™</div>
+  <div class="footer-address">7190 Morrison Street · Niagara Falls, ON L2E 7K5 · Canada</div>
+  <div class="footer-copy">
+    © 2026 DGA Impact Inc.™ All rights reserved. · <a href="mailto:applaunch-info@dgaimpact.com">applaunch-info@dgaimpact.com</a>
+  </div>
+</footer>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, index) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => { entry.target.classList.add('visible'); }, index * 80);
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.animate-in').forEach(el => observer.observe(el));
+
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function(e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+</script>
+
+</body>
+</html>
